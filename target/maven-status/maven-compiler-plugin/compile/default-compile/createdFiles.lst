@@ -1,0 +1,15 @@
+com\mycompany\proyecto2_ed\SecondaryController.class
+modelo\HumanJugador.class
+modelo\Tablero.class
+ggm\trees\BinaryTree.class
+ggm\trees\Tree.class
+modelo\nuevoJuego.class
+com\mycompany\proyecto2_ed\App.class
+modelo\Jugador.class
+ggm\trees\BinaryTreeNode.class
+ggm\trees\TreeNode.class
+module-info.class
+com\mycompany\proyecto2_ed\InterfaceTableController.class
+ggm\trees\Main.class
+modelo\IAJugador.class
+com\mycompany\proyecto2_ed\PrimaryController.class

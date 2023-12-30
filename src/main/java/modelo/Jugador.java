@@ -4,10 +4,21 @@
  */
 package modelo;
 
+import javafx.scene.control.Button;
+
 /**
  *
  * @author USUARIO
  */
-public interface Jugador {
+public abstract class Jugador {
+    private String signo;
     
+    public String getSigno() {
+        return signo;
+    }
+
+    public void setSigno(String signo) {
+        this.signo = signo;
+    }
+    public abstract void marcarCasilla(Button b);
 }

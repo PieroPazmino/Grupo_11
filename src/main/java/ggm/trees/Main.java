@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class Main {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         BinaryTree<Integer> tree = new BinaryTree(0);
         tree.setLeft(new BinaryTree(1));
         tree.setRight(new BinaryTree(2));
@@ -68,6 +68,6 @@ public class Main {
 
     private static boolean isOperator(String token) {
         return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/");
-    }
+    }*/
 
 }

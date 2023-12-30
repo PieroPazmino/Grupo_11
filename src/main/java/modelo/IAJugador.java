@@ -4,19 +4,21 @@
  */
 package modelo;
 
+import javafx.scene.control.Button;
+
 /**
  *
  * @author USUARIO
  */
-public class IAJugador {
-    private char signo;
-
-    public char getSigno() {
-        return signo;
+public class IAJugador extends Jugador{
+    
+    public IAJugador(String s){
+        setSigno(s);
     }
 
-    public void setSigno(char signo) {
-        this.signo = signo;
+    @Override
+    public void marcarCasilla(Button b) {
+        
     }
     
 }

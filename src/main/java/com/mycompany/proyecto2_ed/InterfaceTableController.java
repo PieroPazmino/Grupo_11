@@ -63,6 +63,20 @@ public class InterfaceTableController implements Initializable {
         actualizarJugador();
     } 
     
+    public void actualizarTablero() {
+        String[][] tableroActual = new String[3][3];
+        tableroActual[0][0] = box0_0.getText();
+        tableroActual[0][1] = box0_1.getText();
+        tableroActual[0][2] = box0_2.getText();
+        tableroActual[1][0] = box1_0.getText();
+        tableroActual[1][1] = box1_1.getText();
+        tableroActual[1][2] = box1_2.getText();
+        tableroActual[2][0] = box2_0.getText();
+        tableroActual[2][1] = box2_1.getText();
+        tableroActual[2][2] = box2_2.getText();
+        partidaActual.setTablero(tableroActual);
+    }
+    
     public void actualizarJugador(){
         turnoJugador.setText("Turno del Jugador "+partidaActual.getNumJugador());
         jugadorActual = partidaActual.turnoJugador();
@@ -74,12 +88,6 @@ public class InterfaceTableController implements Initializable {
             verificarTablero();
             actualizarJugador();
         }
-        /*if(cmp.compare(jugadorActual, partidaActual.getJugador1()) == 0){
-            partidaActual.getJugador1().marcarCasilla();
-        }
-        else if (cmp.compare(jugadorActual, partidaActual.getJugador2()) == 0){
-            partidaActual.getJugador2().marcarCasilla();
-        }*/
     }
     
     public boolean verificarCasilla(Button b){

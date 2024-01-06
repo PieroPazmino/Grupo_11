@@ -4,13 +4,14 @@
  */
 package modelo;
 
+import java.io.Serializable;
 import javafx.scene.control.Button;
 
 /**
  *
  * @author USUARIO
  */
-public abstract class Jugador {
+public abstract class Jugador implements Serializable{
     private String signo;
     
     public String getSigno() {
@@ -21,4 +22,7 @@ public abstract class Jugador {
         this.signo = signo;
     }
     public abstract void marcarCasilla(Button b);
+    
+    @Override
+    public abstract String toString();
 }

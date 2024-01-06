@@ -12,13 +12,19 @@ import javafx.scene.control.Button;
  */
 public class IAJugador extends Jugador{
     
-    public IAJugador(String s){
-        setSigno(s);
+    public IAJugador(){
+        
     }
 
     @Override
     public void marcarCasilla(Button b) {
-        
+        //temporal
+        b.setText(""+getSigno());
+    }
+
+    @Override
+    public String toString() {
+        return "IA";
     }
     
 }

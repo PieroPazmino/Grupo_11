@@ -12,13 +12,18 @@ import javafx.scene.control.Button;
  */
 public class HumanJugador extends Jugador{
 
-    public HumanJugador(String s){
-        setSigno(s);
+    public HumanJugador(){
+        
     }
     
     @Override
     public void marcarCasilla(Button b) {
         b.setText(""+getSigno());
+    }
+
+    @Override
+    public String toString() {
+        return "Jugador";
     }
     
 }

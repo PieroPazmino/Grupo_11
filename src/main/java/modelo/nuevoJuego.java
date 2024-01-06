@@ -4,20 +4,24 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author USUARIO
  */
-public class nuevoJuego {
+public class nuevoJuego implements Serializable{
     //private Tablero tablero;
     private Jugador jugador1;
     private Jugador jugador2;
     private String[][] tablero;
-    private int numJugador = 1;
+    private int numJugador = 2;
     
     public nuevoJuego() {
-        jugador1 = new HumanJugador("X");
-        jugador2 = new HumanJugador("O");
+        jugador1 = new HumanJugador();
+        jugador1.setSigno("X");
+        jugador2 = new HumanJugador();
+        jugador2.setSigno("O");
         tablero = new String[3][3];
     }
     
@@ -58,12 +62,12 @@ public class nuevoJuego {
     }
     
     public Jugador turnoJugador(){
-        if(numJugador == 1) {
-            numJugador++;
+        if(numJugador == 2) {
+            numJugador--;
             return jugador1;
         }
         else{
-            numJugador--;
+            numJugador++;
             return jugador2;
         }
     }

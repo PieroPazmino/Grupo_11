@@ -4,13 +4,19 @@
  */
 package com.mycompany.proyecto2_ed;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -21,7 +27,7 @@ import modelo.*;
  *
  * @author USUARIO
  */
-public class InterfaceTableController implements Initializable {
+public class InterfaceTableController implements Initializable, Serializable {
 
     @FXML
     private Label turnoJugador;
@@ -59,9 +65,21 @@ public class InterfaceTableController implements Initializable {
             if(j1.getSigno().compareTo(j2.getSigno()) == 0) return 0;
             return -1;
         };
-        partidaActual = new nuevoJuego();
+        deserializarJuego();
         actualizarJugador();
-    } 
+    }
+    
+    public void deserializarJuego() {
+        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("archivos/game.text"))){
+            partidaActual = (nuevoJuego)in.readObject();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
     
     public void actualizarTablero() {
         String[][] tableroActual = new String[3][3];
@@ -78,8 +96,8 @@ public class InterfaceTableController implements Initializable {
     }
     
     public void actualizarJugador(){
-        turnoJugador.setText("Turno del Jugador "+partidaActual.getNumJugador());
         jugadorActual = partidaActual.turnoJugador();
+        turnoJugador.setText("Turno del "+jugadorActual.toString()+" "+partidaActual.getNumJugador()); 
     }
     
     public void marcarCasilla(Button b){
@@ -97,14 +115,20 @@ public class InterfaceTableController implements Initializable {
     
     public void verificarTablero(){
         if(condicionVictoria()){
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Juego Terminado.\nGanador"+jugadorActual.toString() +" "+partidaActual.getNumJugador());
             try {
-                App.setRoot("primary");
+                App.setRoot("menuConfiguracion");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
         else if (condicionEmpate()){
-            
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Juego Terminado.\nEmpate");
+            try {
+                App.setRoot("menuConfiguracion");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
     
@@ -142,6 +166,15 @@ public class InterfaceTableController implements Initializable {
         boolean condicion3 = b3.getText().compareTo(signo) == 0;
         
         return condicion1 && condicion2 && condicion3;
+    }
+    
+    public void mostrarAlerta(Alert.AlertType tipo, String mensaje) {
+        Alert alert = new Alert(tipo);
+
+        alert.setTitle("Resultado de operacion");
+        alert.setHeaderText("Notificacion");
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
      
     @FXML

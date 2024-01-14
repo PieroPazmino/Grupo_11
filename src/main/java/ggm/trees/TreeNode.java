@@ -7,11 +7,20 @@ class TreeNode<E> {
     
     private E content;
     private List<Tree<E>> children;
+    private int valor;
 
     public TreeNode(E content) {
         this.content = content;
         this.children = new LinkedList<>();
     }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    } 
 
     public E getContent() {
         return content;
@@ -29,7 +38,8 @@ class TreeNode<E> {
         this.children = children;
     }
     
-    
-    
+    public void addChildren(Tree<E> t){
+        children.add(t);
+    }
     
 }

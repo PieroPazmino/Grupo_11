@@ -49,14 +49,6 @@ public class nuevoJuego implements Serializable{
         this.tablero = tablero;
     }
 
-    /*public Tablero getTablero() {
-        return tablero;
-    }
-
-    public void setTablero(Tablero tablero) {
-        this.tablero = tablero;
-    }*/
-
     public int getNumJugador() {
         return numJugador;
     }
@@ -70,5 +62,16 @@ public class nuevoJuego implements Serializable{
             numJugador++;
             return jugador2;
         }
+    }
+    
+    public boolean isFull(){
+        for(int i = 0; i<3; i++){
+            for(int j = 0; j<3; j++){
+                if(tablero[i][j].compareTo("-") == 0){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

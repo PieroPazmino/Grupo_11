@@ -112,7 +112,7 @@ public class InterfaceTableController implements Initializable, Serializable {
         jugadorActual = partidaActual.turnoJugador();
         turnoJugador.setText("Turno del "+jugadorActual.toString()+" "+partidaActual.getNumJugador()); 
         
-        if(jugadorActual instanceof IAJugador){
+        if(jugadorActual instanceof IAJugador && !partidaActual.isFull()){
             for (int i = 0; i < 3; i++) {
                 System.out.print("| ");
                 for (int j = 0; j < 3; j++) {

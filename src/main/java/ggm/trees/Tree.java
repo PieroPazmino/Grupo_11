@@ -39,22 +39,44 @@ public class Tree {
     }
     
     public String[][] miniMax(String signo){
-        this.createChildren(signo);
-        for(Tree t: (List<Tree>)this.getRootNode().getChildren()){
-            t.createChildren(signoOp(signo));
+        this.createChildren(signo, getRoot());
+        for(Tree t: this.getRootNode().getChildren()){
+            t.createChildren(signoOp(signo), t.getRoot());
             t.calculateMin(signo);
         } 
         return calculateMax(signo);    
     }
     
-    public void createChildren(String signo){
-        String[][] matrizRoot = this.getRoot();           
+    public void createChildren1(String signo){
+        for(Tree matrizRoot : this.getRootNode().getChildren()){          
             
-        for(int i = 0; i< 3; i++){
+        for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++){
-                if(matrizRoot[i][j].compareTo("-") == 0){
+                String[][] matrizCopia = new String[3][3];
+                
+                if(matrizRoot.getRoot()[i][j].compareTo("-") == 0){
+                    for(int n = 0; n<3; n++){
+                        for(int m = 0; m<3; m++){
+                           matrizCopia[i][j] = matrizRoot.getRoot()[i][j];
+
+                        }}
                     
-                    String[][] matrizCopia = new String[3][3];
+                    matrizCopia[i][j] = signo;
+                    Tree tree = new Tree(new TreeNode(matrizCopia));
+                    this.getRootNode().addChildren(tree);
+                }
+            }
+        }
+        }
+    }
+    public void createChildren(String signo, String[][] matrizRoot){
+        //String[][] matrizRoot = this.getRoot();           
+            
+        for(int i = 0; i<3; i++){
+            for(int j = 0; j<3; j++){
+                String[][] matrizCopia = new String[3][3];
+                
+                if(matrizRoot[i][j].compareTo("-") == 0){
                     for(int n = 0; n<3; n++){
                         for(int m = 0; m<3; m++){
                            matrizCopia[i][j] = matrizRoot[i][j];
@@ -111,7 +133,7 @@ public class Tree {
     
     public int calcularP(String signo){
         int count = 0;
-        String[][] matriz = (String[][])this.getRoot();
+        String[][] matriz = this.getRoot();
  
         // Check rows
         for (int i = 0; i < 3; i++) {

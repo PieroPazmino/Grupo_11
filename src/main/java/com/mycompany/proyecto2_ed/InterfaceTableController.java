@@ -122,7 +122,7 @@ public class InterfaceTableController implements Initializable, Serializable {
                 System.out.println("-------------");
             }
             Tree tabAct = new Tree(new TreeNode(partidaActual.getTablero()));
-            String[][] miniMaxTablero = (String[][])tabAct.miniMax(jugadorActual.getSigno());
+            String[][] miniMaxTablero = tabAct.miniMax(jugadorActual.getSigno());
             
             for (int i = 0; i < 3; i++) {
             System.out.print("| ");
@@ -132,16 +132,22 @@ public class InterfaceTableController implements Initializable, Serializable {
             System.out.println();
             System.out.println("-------------");
         }
-            partidaActual.setTablero(miniMaxTablero);
-            box0_0.setText(miniMaxTablero[0][0]);
-            box0_1.setText(miniMaxTablero[0][1]);
-            box0_2.setText(miniMaxTablero[0][2]);
-            box1_0.setText(miniMaxTablero[1][0]);
-            box1_1.setText(miniMaxTablero[1][1]);
-            box1_2.setText(miniMaxTablero[1][2]);
-            box2_0.setText(miniMaxTablero[2][0]);
-            box2_1.setText(miniMaxTablero[2][1]);
-            box2_2.setText(miniMaxTablero[2][2]);
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if(miniMaxTablero[i][j]!=null){
+                        partidaActual.getTablero()[i][j]=miniMaxTablero[i][j];
+                    }
+                }
+            }
+            box0_0.setText(partidaActual.getTablero()[0][0]);
+            box0_1.setText(partidaActual.getTablero()[0][1]);
+            box0_2.setText(partidaActual.getTablero()[0][2]);
+            box1_0.setText(partidaActual.getTablero()[1][0]);
+            box1_1.setText(partidaActual.getTablero()[1][1]);
+            box1_2.setText(partidaActual.getTablero()[1][2]);
+            box2_0.setText(partidaActual.getTablero()[2][0]);
+            box2_1.setText(partidaActual.getTablero()[2][1]);
+            box2_2.setText(partidaActual.getTablero()[2][2]);
             verificarTablero();
             actualizarJugador();
 

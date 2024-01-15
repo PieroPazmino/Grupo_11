@@ -39,8 +39,16 @@ public class Tree {
     }
     
     public String[][] miniMax(String signo){
-        this.createChildren(signo, getRoot());
+        this.createChildren(signo, this.getRoot());
         for(Tree t: this.getRootNode().getChildren()){
+//            for (int i = 0; i < 3; i++) {
+//                System.out.print("| ");
+//                for (int j = 0; j < 3; j++) {
+//                    System.out.print(t.getRoot()[i][j] + " | ");
+//                }
+//                System.out.println();
+//                System.out.println("-------------");
+//            }
             t.createChildren(signoOp(signo), t.getRoot());
             t.calculateMin(signo);
         } 
@@ -79,7 +87,7 @@ public class Tree {
                 if(matrizRoot[i][j].compareTo("-") == 0){
                     for(int n = 0; n<3; n++){
                         for(int m = 0; m<3; m++){
-                           matrizCopia[i][j] = matrizRoot[i][j];
+                           matrizCopia[n][m] = matrizRoot[n][m];
 
                         }}
                     
@@ -128,6 +136,7 @@ public class Tree {
         int POponente = calcularP(signo);
         int Pjugador = calcularP(signoOp(signo));
         int U = Pjugador - POponente;
+        //System.out.println(U);
         return U;
     }
     
@@ -160,7 +169,7 @@ public class Tree {
                 && (matriz[2][0].compareTo(signo) != 0)) {
             count++;
         }
-
+        //System.out.println(count);
         return count;
     }
 }

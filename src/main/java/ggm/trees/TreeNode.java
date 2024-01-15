@@ -3,13 +3,13 @@ package ggm.trees;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TreeNode<E> {
+public class TreeNode {
     
-    private E content;
-    private List<Tree<E>> children;
+    private String[][] content;
+    private List<Tree> children;
     private int valor;
 
-    public TreeNode(E content) {
+    public TreeNode(String[][] content) {
         this.content = content;
         this.children = new LinkedList<>();
     }
@@ -22,23 +22,23 @@ public class TreeNode<E> {
         this.valor = valor;
     } 
 
-    public E getContent() {
+    public String[][] getContent() {
         return content;
     }
 
-    public void setContent(E content) {
+    public void setContent(String[][] content) {
         this.content = content;
     }
 
-    public List<Tree<E>> getChildren() {
+    public List<Tree> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Tree<E>> children) {
+    public void setChildren(List<Tree> children) {
         this.children = children;
     }
     
-    public void addChildren(Tree<E> t){
+    public void addChildren(Tree t){
         children.add(t);
     }
     

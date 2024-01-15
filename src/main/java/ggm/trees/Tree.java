@@ -2,15 +2,15 @@ package ggm.trees;
 
 import java.util.List;
 
-public class Tree<E> {
+public class Tree {
     
-    private TreeNode<E> root;
+    private TreeNode root;
     
     public Tree () {
         this.root = null; 
     }
     
-    public Tree(TreeNode<E> root){
+    public Tree(TreeNode root){
         this.root = root;
     }
     
@@ -18,7 +18,7 @@ public class Tree<E> {
         return this.root == null;
     }
 
-    public E getRoot() {
+    public String[][] getRoot() {
         return root.getContent();
     }
     
@@ -26,11 +26,11 @@ public class Tree<E> {
         return this.root;
     }
 
-    private void setRootNode(TreeNode<E> root) {
+    private void setRootNode(TreeNode root) {
         this.root = root;
     }
     
-    public void setRoot (E content) {
+    public void setRoot (String[][] content) {
         this.root.setContent(content);
     }
     
@@ -38,9 +38,9 @@ public class Tree<E> {
         return this.root.getChildren().isEmpty();
     }
     
-    public E miniMax(String signo){
-        createChildren(signo);
-        for(Tree<E> t: (List<Tree<E>>)this.getRootNode().getChildren()){
+    public String[][] miniMax(String signo){
+        this.createChildren(signo);
+        for(Tree t: (List<Tree>)this.getRootNode().getChildren()){
             t.createChildren(signoOp(signo));
             t.calculateMin(signo);
         } 
@@ -48,27 +48,21 @@ public class Tree<E> {
     }
     
     public void createChildren(String signo){
-        String[][] matrizRoot = (String[][])this.getRoot();
-        String[][]matrizActual = new String[3][3];
-        
-        for(int i = 0; i< 3; i++){
-            for(int j = 0; j<3; j++){
-               matrizActual[i][j] = matrizRoot[i][j];
-                
-            }}
-        
+        String[][] matrizRoot = this.getRoot();           
             
         for(int i = 0; i< 3; i++){
             for(int j = 0; j<3; j++){
-                if(matrizActual[i][j]==null){
+                if(matrizRoot[i][j].compareTo("-") == 0){
+                    
                     String[][] matrizCopia = new String[3][3];
                     for(int n = 0; n<3; n++){
                         for(int m = 0; m<3; m++){
-                           matrizCopia[i][j] = matrizActual[i][j];
+                           matrizCopia[i][j] = matrizRoot[i][j];
 
                         }}
+                    
                     matrizCopia[i][j] = signo;
-                    Tree<E> tree = new Tree(new TreeNode(matrizCopia));
+                    Tree tree = new Tree(new TreeNode(matrizCopia));
                     this.getRootNode().addChildren(tree);
                 }
             }
@@ -86,13 +80,13 @@ public class Tree<E> {
     }
     
     
-    public E calculateMax(String signo){
+    public String[][] calculateMax(String signo){
         int max = Integer.MIN_VALUE;
-        for(Tree<E> t: (List<Tree<E>>)this.getRootNode().getChildren()){
+        for(Tree t: (List<Tree>)this.getRootNode().getChildren()){
             max = Math.max(max, t.getRootNode().getValor());
         }
         
-        for(Tree<E> t: (List<Tree<E>>)this.getRootNode().getChildren()) {
+        for(Tree t: (List<Tree>)this.getRootNode().getChildren()) {
             if(max == t.getRootNode().getValor()){
                 return t.getRoot();
             }
@@ -101,13 +95,11 @@ public class Tree<E> {
     }
     
     public void calculateMin(String signo){
-        if(!isLeaf()){
-            int min = Integer.MAX_VALUE;
-            for(Tree<E> t: (List<Tree<E>>)this.getRootNode().getChildren()){
-                min = Math.min(min, t.UtilidadMin(signo));
-            }
-            this.getRootNode().setValor(min);
+        int min = Integer.MAX_VALUE;
+        for(Tree t: (List<Tree>)this.getRootNode().getChildren()){
+            min = Math.min(min, t.UtilidadMin(signo));
         }
+        this.getRootNode().setValor(min);
     }
 
     private int UtilidadMin(String signo) {

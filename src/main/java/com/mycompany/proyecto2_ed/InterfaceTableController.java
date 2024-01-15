@@ -68,17 +68,8 @@ public class InterfaceTableController implements Initializable, Serializable {
             return -1;
         };
         deserializarJuego();
-        actualizarJugador();
         actualizarTablero();
-        System.out.println("-------------");
-        for (int i = 0; i < 3; i++) {
-            System.out.print("| ");
-            for (int j = 0; j < 3; j++) {
-                System.out.print(partidaActual.getTablero()[i][j] + " | ");
-            }
-            System.out.println();
-            System.out.println("-------------");
-        }
+        actualizarJugador();
     
     }
     
@@ -109,6 +100,7 @@ public class InterfaceTableController implements Initializable, Serializable {
     }
     
     public void actualizarJugador(){
+        actualizarTablero();
         for (int i = 0; i < 3; i++) {
             System.out.print("| ");
             for (int j = 0; j < 3; j++) {
@@ -119,8 +111,17 @@ public class InterfaceTableController implements Initializable, Serializable {
         }
         jugadorActual = partidaActual.turnoJugador();
         turnoJugador.setText("Turno del "+jugadorActual.toString()+" "+partidaActual.getNumJugador()); 
+        
         if(jugadorActual instanceof IAJugador){
-            Tree<String[][]> tabAct = new Tree(new TreeNode<String[][]>(partidaActual.getTablero()));
+            for (int i = 0; i < 3; i++) {
+                System.out.print("| ");
+                for (int j = 0; j < 3; j++) {
+                    System.out.print(partidaActual.getTablero()[i][j] + " | ");
+                }
+                System.out.println();
+                System.out.println("-------------");
+            }
+            Tree tabAct = new Tree(new TreeNode(partidaActual.getTablero()));
             String[][] miniMaxTablero = (String[][])tabAct.miniMax(jugadorActual.getSigno());
             
             for (int i = 0; i < 3; i++) {

@@ -3,7 +3,7 @@ package ggm.trees;
 import java.util.LinkedList;
 import java.util.List;
 
-class TreeNode<E> {
+public class TreeNode<E> {
     
     private E content;
     private List<Tree<E>> children;

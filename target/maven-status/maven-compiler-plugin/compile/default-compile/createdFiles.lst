@@ -10,6 +10,7 @@ ggm\trees\BinaryTreeNode.class
 ggm\trees\TreeNode.class
 module-info.class
 com\mycompany\proyecto2_ed\InterfaceTableController.class
+com\mycompany\proyecto2_ed\MenuConfiguracionController.class
 ggm\trees\Main.class
 modelo\IAJugador.class
 com\mycompany\proyecto2_ed\PrimaryController.class

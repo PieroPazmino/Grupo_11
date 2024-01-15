@@ -4,6 +4,8 @@
  */
 package com.mycompany.proyecto2_ed;
 
+import ggm.trees.Tree;
+import ggm.trees.TreeNode;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -67,6 +69,17 @@ public class InterfaceTableController implements Initializable, Serializable {
         };
         deserializarJuego();
         actualizarJugador();
+        actualizarTablero();
+        System.out.println("-------------");
+        for (int i = 0; i < 3; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(partidaActual.getTablero()[i][j] + " | ");
+            }
+            System.out.println();
+            System.out.println("-------------");
+        }
+    
     }
     
     public void deserializarJuego() {
@@ -96,8 +109,42 @@ public class InterfaceTableController implements Initializable, Serializable {
     }
     
     public void actualizarJugador(){
+        for (int i = 0; i < 3; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(partidaActual.getTablero()[i][j] + " | ");
+            }
+            System.out.println();
+            System.out.println("-------------");
+        }
         jugadorActual = partidaActual.turnoJugador();
         turnoJugador.setText("Turno del "+jugadorActual.toString()+" "+partidaActual.getNumJugador()); 
+        if(jugadorActual instanceof IAJugador){
+            Tree<String[][]> tabAct = new Tree(new TreeNode<String[][]>(partidaActual.getTablero()));
+            String[][] miniMaxTablero = (String[][])tabAct.miniMax(jugadorActual.getSigno());
+            
+            for (int i = 0; i < 3; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(miniMaxTablero[i][j] + " | ");
+            }
+            System.out.println();
+            System.out.println("-------------");
+        }
+            partidaActual.setTablero(miniMaxTablero);
+            box0_0.setText(miniMaxTablero[0][0]);
+            box0_1.setText(miniMaxTablero[0][1]);
+            box0_2.setText(miniMaxTablero[0][2]);
+            box1_0.setText(miniMaxTablero[1][0]);
+            box1_1.setText(miniMaxTablero[1][1]);
+            box1_2.setText(miniMaxTablero[1][2]);
+            box2_0.setText(miniMaxTablero[2][0]);
+            box2_1.setText(miniMaxTablero[2][1]);
+            box2_2.setText(miniMaxTablero[2][2]);
+            verificarTablero();
+            actualizarJugador();
+
+        }
     }
     
     public void marcarCasilla(Button b){
@@ -106,6 +153,21 @@ public class InterfaceTableController implements Initializable, Serializable {
             verificarTablero();
             actualizarJugador();
         }
+    }
+    public void marcarCasillaIA(int i, int j){
+        String[][] tableroActual = new String[3][3];
+        tableroActual[0][0] = box0_0.getText();
+        tableroActual[0][1] = box0_1.getText();
+        tableroActual[0][2] = box0_2.getText();
+        tableroActual[1][0] = box1_0.getText();
+        tableroActual[1][1] = box1_1.getText();
+        tableroActual[1][2] = box1_2.getText();
+        tableroActual[2][0] = box2_0.getText();
+        tableroActual[2][1] = box2_1.getText();
+        tableroActual[2][2] = box2_2.getText();
+        partidaActual.setTablero(tableroActual);
+        verificarTablero();
+        actualizarJugador();
     }
     
     public boolean verificarCasilla(Button b){

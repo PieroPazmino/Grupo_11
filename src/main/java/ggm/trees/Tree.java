@@ -48,12 +48,25 @@ public class Tree<E> {
     }
     
     public void createChildren(String signo){
-        String[][] matrizActual = (String[][])this.getRoot();
+        String[][] matrizRoot = (String[][])this.getRoot();
+        String[][]matrizActual = new String[3][3];
+        
+        for(int i = 0; i< 3; i++){
+            for(int j = 0; j<3; j++){
+               matrizActual[i][j] = matrizRoot[i][j];
+                
+            }}
+        
             
         for(int i = 0; i< 3; i++){
             for(int j = 0; j<3; j++){
-                if(matrizActual[i][j].compareTo("-") == 0){
-                    String[][] matrizCopia = matrizActual;
+                if(matrizActual[i][j]==null){
+                    String[][] matrizCopia = new String[3][3];
+                    for(int n = 0; n<3; n++){
+                        for(int m = 0; m<3; m++){
+                           matrizCopia[i][j] = matrizActual[i][j];
+
+                        }}
                     matrizCopia[i][j] = signo;
                     Tree<E> tree = new Tree(new TreeNode(matrizCopia));
                     this.getRootNode().addChildren(tree);

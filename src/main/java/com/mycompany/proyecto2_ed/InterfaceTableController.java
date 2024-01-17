@@ -5,17 +5,17 @@
 package com.mycompany.proyecto2_ed;
 
 import ggm.trees.Tree;
+import ggm.trees.Tree2;
 import ggm.trees.TreeNode;
+import ggm.trees.TreeNode2;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -118,10 +118,16 @@ public class InterfaceTableController implements Initializable, Serializable {
     }
     
     public void isIA(){
-        if(jugadorActual instanceof IAJugador && !partidaActual.isFull() && !hayGanador){       
+        if(jugadorActual instanceof IAJugador && !partidaActual.isFull() && !hayGanador){ 
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+
             Tree tabAct = new Tree(new TreeNode(partidaActual.getTablero()));
             String[][] miniMaxTablero = tabAct.miniMax(jugadorActual.getSigno());
-            
+
             for (int i = 0; i < 3; i++) {
                 System.out.print("| ");
                 for (int j = 0; j < 3; j++) {
@@ -134,7 +140,6 @@ public class InterfaceTableController implements Initializable, Serializable {
             cambiarTablero(miniMaxTablero);
             verificarTablero();
             actualizarJugador();
-
         }
     }
     

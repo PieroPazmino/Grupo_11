@@ -57,12 +57,14 @@ public class InterfaceTableController implements Initializable, Serializable {
     private nuevoJuego partidaActual;
     private Comparator<Jugador> cmp;
     private Jugador jugadorActual;
+    private boolean hayGanador;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        hayGanador = false;
         cmp = (j1,j2) -> {
             if(j1.getSigno().compareTo(j2.getSigno()) == 0) return 0;
             return -1;
@@ -112,46 +114,42 @@ public class InterfaceTableController implements Initializable, Serializable {
         jugadorActual = partidaActual.turnoJugador();
         turnoJugador.setText("Turno del "+jugadorActual.toString()+" "+partidaActual.getNumJugador()); 
         
-        if(jugadorActual instanceof IAJugador && !partidaActual.isFull()){
-            for (int i = 0; i < 3; i++) {
-                System.out.print("| ");
-                for (int j = 0; j < 3; j++) {
-                    System.out.print(partidaActual.getTablero()[i][j] + " | ");
-                }
-                System.out.println();
-                System.out.println("-------------");
-            }
+        isIA();
+    }
+    
+    public void isIA(){
+        if(jugadorActual instanceof IAJugador && !partidaActual.isFull() && !hayGanador){       
             Tree tabAct = new Tree(new TreeNode(partidaActual.getTablero()));
             String[][] miniMaxTablero = tabAct.miniMax(jugadorActual.getSigno());
             
             for (int i = 0; i < 3; i++) {
-            System.out.print("| ");
-            for (int j = 0; j < 3; j++) {
-                System.out.print(miniMaxTablero[i][j] + " | ");
-            }
-            System.out.println();
-            System.out.println("-------------");
-        }
-            for (int i = 0; i < 3; i++) {
+                System.out.print("| ");
                 for (int j = 0; j < 3; j++) {
-                    if(miniMaxTablero[i][j]!=null){
-                        partidaActual.getTablero()[i][j]=miniMaxTablero[i][j];
-                    }
+                    System.out.print(miniMaxTablero[i][j] + " | ");
                 }
+                System.out.println();
+                System.out.println("-------------");
             }
-            box0_0.setText(partidaActual.getTablero()[0][0]);
-            box0_1.setText(partidaActual.getTablero()[0][1]);
-            box0_2.setText(partidaActual.getTablero()[0][2]);
-            box1_0.setText(partidaActual.getTablero()[1][0]);
-            box1_1.setText(partidaActual.getTablero()[1][1]);
-            box1_2.setText(partidaActual.getTablero()[1][2]);
-            box2_0.setText(partidaActual.getTablero()[2][0]);
-            box2_1.setText(partidaActual.getTablero()[2][1]);
-            box2_2.setText(partidaActual.getTablero()[2][2]);
+
+            cambiarTablero(miniMaxTablero);
             verificarTablero();
             actualizarJugador();
 
         }
+    }
+    
+    public void cambiarTablero(String[][] miniMaxTablero){
+        partidaActual.setTablero(miniMaxTablero);
+            
+        box0_0.setText(partidaActual.getTablero()[0][0]);
+        box0_1.setText(partidaActual.getTablero()[0][1]);
+        box0_2.setText(partidaActual.getTablero()[0][2]);
+        box1_0.setText(partidaActual.getTablero()[1][0]);
+        box1_1.setText(partidaActual.getTablero()[1][1]);
+        box1_2.setText(partidaActual.getTablero()[1][2]);
+        box2_0.setText(partidaActual.getTablero()[2][0]);
+        box2_1.setText(partidaActual.getTablero()[2][1]);
+        box2_2.setText(partidaActual.getTablero()[2][2]);
     }
     
     public void marcarCasilla(Button b){
@@ -185,6 +183,7 @@ public class InterfaceTableController implements Initializable, Serializable {
     public void verificarTablero(){
         if(condicionVictoria()){
             mostrarAlerta(Alert.AlertType.INFORMATION, "Juego Terminado.\nGanador"+jugadorActual.toString() +" "+partidaActual.getNumJugador());
+            hayGanador = true;
             try {
                 App.setRoot("menuConfiguracion");
             } catch (IOException ex) {
@@ -289,5 +288,14 @@ public class InterfaceTableController implements Initializable, Serializable {
     @FXML
     public void marcarBox2_2(){
         marcarCasilla(box2_2);
+    }
+    
+    @FXML
+    public void cancelar(){
+        try {
+            App.setRoot("menuConfiguracion");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
